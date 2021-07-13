@@ -329,7 +329,7 @@
                 <!-- Brand -->
                 <a class="navbar-brand text-white" href="/">
                     <img src="/logo.gif" height="40" alt="" loading="lazy" />
-                    Dashboard
+                    Market
                 </a>
             </div>
         </nav>
@@ -342,7 +342,6 @@
         <div class="container pt-4">
             <!--Section: Main-->
             <section>
-                <h1>Bot Details</h1>
                 <div id="controls">
                     <div class="controlgroup">
                         <select id="tier">
@@ -402,8 +401,12 @@
                         <button id="submit">Submit</button>
                     </div>
                 </div>
-                <div id="loading">
+                <div id="loading" style="display: none;">
                     <img alt="loading" src="https://i.ya-webdesign.com/images/minimalist-transparent-loading-gif-9.gif">
+                </div>
+                <div id="wrapper"></div>
+                <div id="dialog" title="Historical Data">
+                    <div id="chart_div" style="width: 750px; height: 500px;"></div>
                 </div>
             </section>
             <!-- Footer -->
