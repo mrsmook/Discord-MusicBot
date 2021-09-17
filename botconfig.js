@@ -19,9 +19,9 @@ module.exports = {
   //Lavalink
    Lavalink: {
     id: "Main",
-    host: "https://lavalink-repl.mrsmook1.repl.co/",
-    port: 443,
-    pass: "(password)", 
+    host: "https://lavalink.mrsmook1.repl.co",
+    port: (port),
+    pass: "youshallnotpass",
     secure: true, // Set this to true if you're self-hosting lavalink on replit.
   },
 
