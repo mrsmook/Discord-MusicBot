@@ -42,6 +42,10 @@ api.get("/servers", Auth, (req, res) => {
   res.sendFile(join(__dirname, "..", "views", "servers.html"));
 });
 
+api.get("/market", Auth, (req, res) => {
+  res.sendFile(join(__dirname, "..", "views", "market.html"));
+});
+
 api.get("/servers/:id", Auth, (req, res) => {
   if (!req.user.guilds.find((x) => x.id == req.params.id))
     return res.redirect("/servers");
