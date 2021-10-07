@@ -33,6 +33,7 @@ module.exports = {
         const inQueue = page.$eval('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(6)', el => el.innerText)
         const inWaiting = page.$eval('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(7)', el => el.innerText)
 
+        console.log(inGame)
         await client.sendTime(message.channel,":Kaloon server Status: "+ serverStatus +
             "\n"+
             "Player InGame : "+inGame +
