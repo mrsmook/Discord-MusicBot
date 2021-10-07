@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/mrsmook/Discord-MusicBot#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "colors": "^1.4.0",
     "cpu-stat": "^2.0.1",
     "discord.js": "^12.5.3",
@@ -36,6 +37,7 @@
     "erela.js": "^2.3.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "fetch": "^1.1.0",
     "jsoning": "^0.11.0",
     "lavasfy": "2.1.2",
     "lodash": "^4.17.21",
