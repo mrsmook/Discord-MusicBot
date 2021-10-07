@@ -29,9 +29,9 @@ module.exports = {
         await page.waitForSelector("body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4)");
 
         const serverStatus = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span', el => el.innerText)
-        const inGame = page.$eval('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(5)', el => el.innerText)
-        const inQueue = page.$eval('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(6)', el => el.innerText)
-        const inWaiting = page.$eval('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(7)', el => el.innerText)
+        const inGame = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(5)', el => el.innerText)
+        const inQueue = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(6)', el => el.innerText)
+        const inWaiting = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(7)', el => el.innerText)
 
         console.log(inGame)
         await client.sendTime(message.channel,":Kaloon server Status: "+ serverStatus +
