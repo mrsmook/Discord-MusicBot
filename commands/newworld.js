@@ -28,7 +28,7 @@ module.exports = {
         await page.goto("https://www.newworldstatus.com/", {waitUntil: 'load', timeout: 0});
         await page.waitForSelector("body")
         //const serverStatus = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span', el => el.innerText)
-        const inGame = page.$eval('body', el => el.innerText)
+        await  inGame = page.$eval('body', el => el.innerText)
         //const inQueue = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(6)', el => el.innerText)
         //const inWaiting = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(7)', el => el.innerText)
 
