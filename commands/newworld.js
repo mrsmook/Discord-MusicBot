@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const cheerio = require('cheerio');
-const fetch = require('node-fetch');
+const puppeteer = require('puppeteer')
 
 module.exports = {
     name: "kaloon",
@@ -20,23 +19,26 @@ module.exports = {
      */
     run: async (client, message, args, { GuildDB }) => {
         console.log('Kaloon')
-        fetch('https://www.newworldstatus.com/', client, message)
-            .then(response => response.text())
-            .then(html = async () => {
-                const $ = cheerio.load(html);
-                serverStatus = $('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span').html();
-                inGame = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(5)').html();
-                inQueue = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(6)').html();
-                inWaiting = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(7)').html();
-                await client.sendTime(message.channel,":Kaloon server Status: "+ serverStatus +
-                    "\n"+
-                    "Player InGame : "+inGame +
-                    "\n"+
-                    "Player InQueue : "+ inQueue+
-                    "\n"+
-                    "Waiting time : "+ inWaiting);
-                await message.react("✅");
-            });
+        const browser = await puppeteer.launch({headless: false});
+        const page = await browser.newPage();
+        page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36");
+
+        await page.goto("https://www.newworldstatus.com/", {waitUntil: 'load', timeout: 0});
+        await page.waitForSelector("body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4)");
+
+        const serverStatus = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span', el => el.innerText))
+        const inGame = page.$eval('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(5)', el => el.innerText))
+        const inQueue = page.$eval('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(6)', el => el.innerText))
+        const inWaiting = page.$eval('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(7)', el => el.innerText))
+
+        await client.sendTime(message.channel,":Kaloon server Status: "+ serverStatus +
+            "\n"+
+            "Player InGame : "+inGame +
+            "\n"+
+            "Player InQueue : "+ inQueue+
+            "\n"+
+            "Waiting time : "+ inWaiting);
+        await message.react("✅");
     },
 
     SlashCommand: {
