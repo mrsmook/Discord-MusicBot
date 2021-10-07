@@ -26,20 +26,20 @@ module.exports = {
         page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36");
 
         await page.goto("https://www.newworldstatus.com/", {waitUntil: 'load', timeout: 0});
-        await page.waitForSelector("body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(7)")
-        const serverStatus = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span', el => el.innerText)
+        await page.waitForSelector("body")
+        //const serverStatus = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span', el => el.innerText)
         const inGame = page.$eval('body', el => el.innerText)
-        const inQueue = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(6)', el => el.innerText)
-        const inWaiting = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(7)', el => el.innerText)
+        //const inQueue = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(6)', el => el.innerText)
+        //const inWaiting = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(7)', el => el.innerText)
 
         console.log(inGame)
-        await client.sendTime(message.channel,":Kaloon server Status: "+ serverStatus +
+        await client.sendTime(message.channel,":Kaloon server Status: "+ inGame +
             "\n"+
             "Player InGame : "+inGame +
             "\n"+
-            "Player InQueue : "+ inQueue+
+            "Player InQueue : "+ inGame+
             "\n"+
-            "Waiting time : "+ inWaiting);
+            "Waiting time : "+ inGame);
         await message.react("✅");
     },
 
