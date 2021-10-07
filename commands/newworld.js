@@ -20,26 +20,23 @@ module.exports = {
      */
     run: async (client, message, args, { GuildDB }) => {
         console.log('Kaloon')
-        const pageParse = (url) =>
-            fetch(url)
-                .then(response => response.text())
-                .then(html = async () => {
-                    const $ = cheerio.load(html);
-                    serverStatus = $('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span').html();
-                    inGame = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(5)').html();
-                    inQueue = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(6)').html();
-                    inWaiting = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(7)').html();
-
-                    await client.sendTime(message.channel,":Kaloon server Status: "+ serverStatus +
-                        "\n"+
-                        "Player InGame : "+inGame +
-                            "\n"+
-                        "Player InQueue : "+ inQueue+
-                            "\n"+
-                        "Waiting time : "+ inWaiting);
-                    await message.react("✅");
-                });
-        console.log(pageParse('https://www.newworldstatus.com/'))
+        fetch('https://www.newworldstatus.com/', client, message)
+            .then(response => response.text())
+            .then(html = async () => {
+                const $ = cheerio.load(html);
+                serverStatus = $('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span').html();
+                inGame = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(5)').html();
+                inQueue = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(6)').html();
+                inWaiting = $('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20) > tbody > tr:nth-child(102) > td:nth-child(7)').html();
+                await client.sendTime(message.channel,":Kaloon server Status: "+ serverStatus +
+                    "\n"+
+                    "Player InGame : "+inGame +
+                    "\n"+
+                    "Player InQueue : "+ inQueue+
+                    "\n"+
+                    "Waiting time : "+ inWaiting);
+                await message.react("✅");
+            });
     },
 
     SlashCommand: {
