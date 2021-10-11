@@ -23,7 +23,7 @@ module.exports = {
         const page = await context.newPage();
         await page.goto('https://www.newworldstatus.com/');
         try {
-            await page.waitForSelector('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20)', { timeout: 10000 })
+            await page.waitForSelector('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20)', { timeout: 30000 })
             console.log('found')
         } catch (error) {
             console.log("The element didn't appear.")
