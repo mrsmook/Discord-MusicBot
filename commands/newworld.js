@@ -2,14 +2,14 @@ const { MessageEmbed } = require("discord.js");
 let latestTweets = require('latest-tweets')
 
 module.exports = {
-    name: "newworld",
+    name: "nwt",
     description: "New World Kaloon Server Status",
     usage: "",
     permissions: {
         channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
         member: [],
     },
-    aliases: ["newworld", "nw"],
+    aliases: ["newworldtweets", "tweets"],
     /**
      *
      * @param {import("../structures/DiscordMusicBot")} client
@@ -20,7 +20,6 @@ module.exports = {
     run: async (client, message, args, { GuildDB }) => {
         console.log('tweets')
         latestTweets('playnewworld', async function (err, tweets) {
-            tweets = JSON.parse(tweets)
             for(let tweet in tweets) {
                 await client.sendTime(message.channel,"Lastest tweets: "+ tweet[content] +
                     "\n"+
