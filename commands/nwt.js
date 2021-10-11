@@ -21,12 +21,15 @@ module.exports = {
         latestTweets('playnewworld', async function (err, tweets) {
            for(let tweet in tweets) {
                 console.log(tweets[tweet]['content']);
-                /*await client.sendTime(message.channel,"Lastest tweets: "+ tweet['content'] +
+                await client.sendTime(message.channel, tweets[tweet]['content'] +
                     "\n"+
-                    tweet['date'] +
+                    tweets[tweet]['date'] +
                     "\n"+
-                    tweet['username']
-                );*/
+                    tweets[tweet]['username']
+                );
+                if(tweet >= 5) {
+                    break;
+                }
             }
 
         })
