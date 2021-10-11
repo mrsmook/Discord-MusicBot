@@ -18,7 +18,6 @@ module.exports = {
      * @param {*} param3
      */
     run: async (client, message, args, { GuildDB }) => {
-        console.log('nwstatus')
         const browser = await chromium.launch({ args: ["--no-sandbox"] });
         const context = await browser.newContext();
         const page = await context.newPage();
@@ -26,7 +25,7 @@ module.exports = {
         try {
             await page.waitForSelector('body > div.col-lg-8.mx-auto.p-3.py-md-5 > main > div:nth-child(4) > div > table:nth-child(20)', { timeout: 10000 })
             console.log('found')
-        } catch (error) {`enter code here`
+        } catch (error) {
             console.log("The element didn't appear.")
         }
         await browser.close();
