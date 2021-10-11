@@ -19,8 +19,9 @@ module.exports = {
      */
     run: async (client, message, args, { GuildDB }) => {
         latestTweets('playnewworld', async function (err, tweets) {
-            for(let tweet in tweets) {
-                console.log(tweet);
+            console.log(tweets);
+            /*for(let tweet in tweets) {
+                console.log(tweets);
                 await client.sendTime(message.channel,"Lastest tweets: "+ tweet['content'] +
                     "\n"+
                     tweet['date'] +
@@ -28,7 +29,7 @@ module.exports = {
                     tweet['username']
                 );
                 await message.react("✅");
-            }
+            }*/
 
         })
 
