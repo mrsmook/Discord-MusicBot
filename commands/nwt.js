@@ -19,17 +19,17 @@ module.exports = {
      */
     run: async (client, message, args, { GuildDB }) => {
         latestTweets('playnewworld', async function (err, tweets) {
-            console.log(tweets);
-            /*for(let tweet in tweets) {
-                console.log(tweets);
-                await client.sendTime(message.channel,"Lastest tweets: "+ tweet['content'] +
+            for(let tweet in tweets) {
+                await client.sendTime(message.channel,"Lastest tweets n° "+tweet+": "+ tweets[tweet]['content'] +
                     "\n"+
-                    tweet['date'] +
+                    tweets[tweet]['date'] +
                     "\n"+
-                    tweet['username']
+                    tweets[tweet]['username']
                 );
-                await message.react("✅");
-            }*/
+                if (tweet >= 5) {
+                    break;
+                }
+            }
 
         })
 
