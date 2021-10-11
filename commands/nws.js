@@ -1,15 +1,15 @@
 const { MessageEmbed } = require("discord.js");
-let latestTweets = require('latest-tweets')
+const { chromium } = require("playwright-chromium");
 
 module.exports = {
-    name: "nwt",
-    description: "New World Kaloon Server Status",
+    name: "nws",
+    description: "New World Server Status",
     usage: "",
     permissions: {
         channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
         member: [],
     },
-    aliases: ["newworldtweets", "tweets"],
+    aliases: ["newworldtstatus", "nwstatus"],
     /**
      *
      * @param {import("../structures/DiscordMusicBot")} client
@@ -18,19 +18,18 @@ module.exports = {
      * @param {*} param3
      */
     run: async (client, message, args, { GuildDB }) => {
-        console.log('tweets')
-        latestTweets('playnewworld', async function (err, tweets) {
-            for(let tweet in tweets) {
-                await client.sendTime(message.channel,"Lastest tweets: "+ tweet[content] +
-                    "\n"+
-                    tweet[date] +
-                    "\n"+
-                    tweet[username]
-                );
-                await message.react("✅");
-            }
-
-        })
+        console.log('nwstatus')
+        const browser = await chromium.launch({ args: ["--no-sandbox"] });
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await page.goto('https://www.newworldstatus.com/');
+        try {
+            await page.waitForSelector('', { timeout: 10000 })
+            console.log
+        } catch (error) {`enter code here`
+            console.log("The element didn't appear.")
+        }
+        await browser.close();
 
     },
 
