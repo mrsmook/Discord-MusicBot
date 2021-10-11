@@ -1,15 +1,15 @@
 const { MessageEmbed } = require("discord.js");
-const puppeteer = require('puppeteer')
+let latestTweets = require('latest-tweets')
 
 module.exports = {
-    name: "kaloon",
+    name: "newworld",
     description: "New World Kaloon Server Status",
     usage: "",
     permissions: {
         channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
         member: [],
     },
-    aliases: ["newworld", "kaloon", "k", "nw", "status"],
+    aliases: ["newworld", "nw"],
     /**
      *
      * @param {import("../structures/DiscordMusicBot")} client
@@ -18,29 +18,21 @@ module.exports = {
      * @param {*} param3
      */
     run: async (client, message, args, { GuildDB }) => {
-        console.log('Kaloon')
-        const browser = await puppeteer.launch({headless: true,
-            args: ['--no-sandbox','--disable-setuid-sandbox']
-        });
-        const page = await browser.newPage();
-        page.setUserAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36");
+        console.log('tweets')
+        latestTweets('playnewworld', async function (err, tweets) {
+            tweets = JSON.parse(tweets)
+            for(let tweet in tweets) {
+                await client.sendTime(message.channel,"Lastest tweets: "+ tweet[content] +
+                    "\n"+
+                    tweet[date] +
+                    "\n"+
+                    tweet[username]
+                );
+                await message.react("✅");
+            }
 
-        await page.goto("https://www.newworldstatus.com/", {waitUntil: 'load', timeout: 0});
-        await page.waitForSelector("body")
-        //const serverStatus = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td.text-end span', el => el.innerText)
-        let inGame = page.$eval('body', el => el.innerText)
-        //const inQueue = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(6)', el => el.innerText)
-        //const inWaiting = page.$eval('body div.col-lg-8.mx-auto.p-3.py-md-5 main div:nth-child(4) div table:nth-child(20) tbody tr:nth-child(102) td:nth-child(7)', el => el.innerText)
+        })
 
-        console.log(inGame)
-        await client.sendTime(message.channel,":Kaloon server Status: "+ inGame +
-            "\n"+
-            "Player InGame : "+inGame +
-            "\n"+
-            "Player InQueue : "+ inGame+
-            "\n"+
-            "Waiting time : "+ inGame);
-        await message.react("✅");
     },
 
     SlashCommand: {
