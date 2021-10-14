@@ -21,13 +21,29 @@ module.exports = {
         const browser = await chromium.launch({ args: ["--no-sandbox"] });
         const context = await browser.newContext();
         const page = await context.newPage();
+        let i = 0
+        let selector = `body > main > section > div > div.ags-ServerStatus-content-responses > div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse > div:nth-child(${i}) > div.ags-ServerStatus-content-responses-response-server-status-wrapper `
+        console.log(SearchString)
         await page.goto('https://www.newworldstatus.com/');
         try {
             let SearchString = args.join(" ");
-            await page.waitForSelector('body main section div div.ags-ServerStatus-content-responses div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse div:nth-child(197)  div.ags-ServerStatus-content-responses-response-server-name', { timeout: 30000 })
+            if (!SearchString) return client.sendTime(message.channel, `**Usage - **\`${GuildDB.prefix}nws [server name]\``);
+            await page.waitForSelector( selector, { timeout: 30000 })
             console.log('found')
-            let PageName =  page.$$('body main section div div.ags-ServerStatus-content-responses div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse div:nth-child(197)  div.ags-ServerStatus-content-responses-response-server-name')
-            console.log(PageName)
+            for(let i = 0;i < 300; i++)
+            {
+                selectorServer = `body > main > section > div > div.ags-ServerStatus-content-responses > div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse > div:nth-child(${i}) > div.ags-ServerStatus-content-responses-response-server-status-wrapper div:nth-child(1)`
+                let ServerName =  await page.evaluate(el => el.innerText, await page.$(selectorServer))
+                console.log(ServerName)
+                if (ServerName.toLowerCase() == SearchString.toLowerCase())
+                {
+                    selectorServerStatus = `body > main > section > div > div.ags-ServerStatus-content-responses > div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse > div:nth-child(${i}) > div.ags-ServerStatus-content-responses-response-server-status-wrapper div:nth-child(1)`
+                    let ServerStatus =  await page.evaluate(el => el.getAttribute('title'), await page.$(selectorServerStatus))
+                    console.log(ServerStatus)
+                    break;
+                }
+            }
+
         } catch (error) {
             console.log("The element didn't appear.")
         }
