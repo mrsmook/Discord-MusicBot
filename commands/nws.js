@@ -23,10 +23,10 @@ module.exports = {
         const page = await context.newPage();
         let i = 0
         let selector = `body > main > section > div > div.ags-ServerStatus-content-responses > div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse > div:nth-child(${i}) > div.ags-ServerStatus-content-responses-response-server-status-wrapper `
-        console.log(SearchString)
         await page.goto('https://www.newworldstatus.com/');
         try {
             let SearchString = args.join(" ");
+            console.log(SearchString)
             if (!SearchString) return client.sendTime(message.channel, `**Usage - **\`${GuildDB.prefix}nws [server name]\``);
             await page.waitForSelector( selector, { timeout: 30000 })
             console.log('found')
