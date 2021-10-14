@@ -23,7 +23,8 @@ module.exports = {
         const page = await context.newPage();
         await page.goto('https://www.newworldstatus.com/');
         try {
-            await page.waitForSelector('body > main > section > div > div.ags-ServerStatus-content-responses > div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse.is-active > div:nth-child(197) > div.ags-ServerStatus-content-responses-response-server-name', { timeout: 30000 })
+            let SearchString = args.join(" ");
+            await page.waitForSelector('body main section div div.ags-ServerStatus-content-responses div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse div:nth-child(197)  div.ags-ServerStatus-content-responses-response-server-name', { timeout: 30000 })
             console.log('found')
         } catch (error) {
             console.log("The element didn't appear.")
