@@ -26,6 +26,8 @@ module.exports = {
             let SearchString = args.join(" ");
             await page.waitForSelector('body main section div div.ags-ServerStatus-content-responses div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse div:nth-child(197)  div.ags-ServerStatus-content-responses-response-server-name', { timeout: 30000 })
             console.log('found')
+            let PageName =  page.$$('body main section div div.ags-ServerStatus-content-responses div.ags-ServerStatus-content-responses-response.ags-ServerStatus-content-responses-response--centered.ags-js-serverResponse div:nth-child(197)  div.ags-ServerStatus-content-responses-response-server-name')
+            console.log(PageName)
         } catch (error) {
             console.log("The element didn't appear.")
         }
