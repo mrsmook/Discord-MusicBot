@@ -29,7 +29,7 @@ module.exports = {
     if (!player.queue || !player.queue.length || player.queue === 0) {
       let QueueEmbed = new MessageEmbed()
         .setAuthor("Currently playing", client.botconfig.IconURL)
-        .setColor("RANDOM")
+        .setColor(client.botconfig.EmbedColor)
         .setDescription(
           `[${player.queue.current.title}](${player.queue.current.uri})`
         )
@@ -72,7 +72,7 @@ module.exports = {
 
       let Embed = new MessageEmbed()
         .setAuthor("Queue", client.botconfig.IconURL)
-        .setColor("RANDOM")
+        .setColor(client.botconfig.EmbedColor)
         .setDescription(
           `**Currently Playing:** \n[${player.queue.current.title}](${player.queue.current.uri}) \n\n**Up Next:** \n${SongsDescription}\n\n`
         )
@@ -130,12 +130,15 @@ module.exports = {
     run: async (client, interaction, args, { GuildDB }) => {
       let player = await client.Manager.get(interaction.guild_id);
       if (!player)
-        return client.sendTime(interaction, "❌ | **Nothing is playing right now...**");
+        return client.sendTime(
+          interaction,
+          "❌ | **Nothing is playing right now...**"
+        );
 
       if (!player.queue || !player.queue.length || player.queue === 0) {
         let QueueEmbed = new MessageEmbed()
           .setAuthor("Currently playing", client.botconfig.IconURL)
-          .setColor("RANDOM")
+          .setColor(client.botconfig.EmbedColor)
           .setDescription(
             `[${player.queue.current.title}](${player.queue.current.uri})`
           )
@@ -177,7 +180,7 @@ module.exports = {
 
         let Embed = new MessageEmbed()
           .setAuthor("Queue", client.botconfig.IconURL)
-          .setColor("RANDOM")
+          .setColor(client.botconfig.EmbedColor)
           .setDescription(
             `**Currently Playing:** \n[${player.queue.current.title}](${player.queue.current.uri}) \n\n**Up Next:** \n${SongsDescription}\n\n`
           )
